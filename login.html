@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login &mdash; MFA Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html">Home</a>
+    <a class="active" href="login.html">Login</a>
+    <a href="email-verification.html">Email Verification</a>
+    <a href="otp-verification.html">OTP Verification</a>
+  </nav>
+
+  <main class="content form-page">
+    <section class="form-card">
+      <h1>Login</h1>
+      <p class="intro">Use any phone number and the shared password <strong>1234</strong> to continue.</p>
+
+      <form id="login-form">
+        <label for="phone">Phone number</label>
+        <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter password" required />
+
+        <button type="submit" class="button">Sign in</button>
+      </form>
+
+      <div id="login-feedback" class="feedback" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="scripts/login.js"></script>
+</body>
+</html>

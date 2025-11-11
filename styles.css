@@ -1,0 +1,213 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f3f5f9;
+  --fg: #1f2933;
+  --accent: #2563eb;
+  --accent-dark: #1d4ed8;
+  --card-bg: #ffffffcc;
+  --border: #d1d9e6;
+  --shadow: 0 16px 30px rgba(31, 41, 51, 0.12);
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #e0ecff 0%, var(--bg) 50%, #e7eef8 100%);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  padding: 4rem 1.5rem 2rem;
+  text-align: center;
+  background: linear-gradient(120deg, rgba(37, 99, 235, 0.9), rgba(96, 165, 250, 0.8));
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2.25rem, 3vw, 3rem);
+}
+
+.content {
+  width: min(960px, 90vw);
+  margin: 0 auto;
+  flex: 1;
+}
+
+.card-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  padding: 3rem 0 4rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.button {
+  align-self: flex-start;
+  background: var(--accent);
+  color: white;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button:hover,
+.button:focus {
+  background: var(--accent-dark);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: #5d6b82;
+  font-size: 0.9rem;
+}
+
+.top-nav {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 5vw;
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(14px);
+  z-index: 10;
+}
+
+.top-nav a {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.top-nav a:hover,
+.top-nav a:focus {
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.top-nav a.active {
+  background: var(--accent);
+  color: white;
+}
+
+.form-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4rem 0;
+}
+
+.form-card {
+  width: min(480px, 90vw);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 2.75rem 2.5rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-card h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.form-card label {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.form-card input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-card input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+  outline: none;
+}
+
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.feedback {
+  min-height: 2rem;
+  font-weight: 600;
+}
+
+.feedback.success {
+  color: #0b8a42;
+}
+
+.feedback.error {
+  color: #d12c2c;
+}
+
+.intro {
+  margin-bottom: 0.5rem;
+  color: #44546b;
+}
+
+.hint {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+@media (max-width: 640px) {
+  .top-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .form-card {
+    padding: 2rem 1.5rem;
+  }
+}
