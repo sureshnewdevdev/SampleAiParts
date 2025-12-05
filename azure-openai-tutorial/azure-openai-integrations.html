@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Integrations with Azure Services</title>
+<style>
+body {margin:0;font-family:Arial, sans-serif;}
+.topnav {background-color:#04AA6D;overflow:hidden;color:white;padding:14px;font-size:20px;font-weight:bold;}
+.sidebar {height:100vh;width:260px;position:fixed;top:48px;left:0;background:#f1f1f1;padding-top:20px;overflow-y:auto;border-right:1px solid #ddd;}
+.sidebar a {padding:10px 20px;display:block;color:#000;text-decoration:none;font-weight:600;}
+.sidebar a:hover {background:#ddd;}
+.main {margin-left:270px;padding:20px;}
+.section {border:1px solid #ddd;margin-bottom:20px;}
+.section h2 {margin:0;padding:10px;background:#04AA6D;color:white;}
+.section .content {padding:15px;}
+.note {border-left:4px solid #2196F3;background:#E7F3FE;padding:10px;margin:10px 0;}
+.tip {border-left:4px solid #04AA6D;background:#e8f5e9;padding:10px;margin:10px 0;}
+.warning {border-left:4px solid #f44336;background:#ffebee;padding:10px;margin:10px 0;}
+.example {background:#f5f5f5;border-left:4px solid #999;padding:10px;margin:10px 0;}
+.code {background:#1e1e1e;color:#f8f8f2;padding:10px;border-radius:4px;overflow:auto;font-family:Consolas, monospace;}
+.try-btn {background:#04AA6D;color:white;padding:8px 12px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin-top:8px;}
+.nav-btn {background:#04AA6D;color:white;padding:10px 16px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin:10px 5px;}
+img {max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;margin:10px 0;}
+pre {white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<div class="topnav">Azure OpenAI Service – Architecture, Deployment, Security & Integration</div>
+<div class="sidebar">
+<a href="index.html">Introduction</a>
+<a href="azure-openai-architecture.html">Architecture & Capabilities</a>
+<a href="azure-openai-setup.html">Setup</a>
+<a href="azure-openai-deployment.html">Deployment & Management</a>
+<a href="azure-openai-auth.html">Authentication & Access</a>
+<a href="azure-openai-api-patterns.html">API Integration Patterns</a>
+<a href="azure-openai-integrations.html">Integrations with Azure Services</a>
+<a href="azure-openai-rag.html">RAG Workflow</a>
+<a href="azure-openai-best-practices.html">Best Practices</a>
+<a href="azure-openai-use-cases.html">Real-world Use Cases</a>
+<a href="azure-openai-mini-project.html">Mini Project</a>
+<a href="azure-openai-faqs.html">FAQs</a>
+<a href="azure-openai-interview.html">Interview Questions</a>
+<a href="azure-openai-summary.html">Summary</a>
+<a href="azure-openai-quiz.html">MCQ Quiz</a>
+<a href="azure-openai-downloads.html">Downloads</a>
+</div>
+<div class="main">
+<div class="section">
+<h2>Integrations with Azure Services</h2>
+<div class="content">
+<p>Azure OpenAI pairs naturally with Azure Search for retrieval-augmented generation, Blob Storage for document ingestion, and Cosmos DB for conversational state. Logic Apps and Power Automate allow low-code orchestration, while Event Grid and Service Bus enable reactive flows. Monitoring and alerting land in Azure Monitor and Log Analytics.</p>
+<p>Data movement often relies on Data Factory or Synapse pipelines to preprocess content before embeddings generation. Security services like Key Vault store secrets, and Front Door or API Management provide global routing and protection. Combining these creates a robust application mesh around OpenAI capabilities.</p>
+<p>When integrating, define clear data paths and ownership: ingestion, enrichment, prompting, and actioning. Each Azure service should have defined SLAs and resiliency plans to keep AI responses reliable.</p>
+<img src="https://via.placeholder.com/900x350?text=Azure+Integrations" alt="Integrations" />
+</div>
+</div>
+<div class="section">
+<h2>ASCII Integration Map</h2>
+<div class="content">
+<pre>Data Lake/Blob --> Embeddings (OpenAI) --> Azure Search Index
+Clients --> API Mgmt --> Backend --> Azure OpenAI --> Cosmos DB (state)
+Events --> Event Grid --> Functions --> Azure OpenAI --> Notifications</pre>
+</div>
+</div>
+<div class="section">
+<h2>Example Scenario</h2>
+<div class="content">
+<div class="example"><strong>Example:</strong> A knowledge bot uses Data Factory to ingest PDFs into Blob, Functions to create embeddings, Azure Search for retrieval, and OpenAI for grounded answers, all fronted by API Management.</div>
+</div>
+</div>
+<div class="section">
+<h2>Integration Snippet</h2>
+<div class="content">
+<div class="code"><pre># Pseudocode: enrich prompt with Azure Search
+from azure.search.documents import SearchClient
+from azure.core.credentials import AzureKeyCredential
+import openai, os
+
+search = SearchClient(endpoint=os.getenv("SEARCH_ENDPOINT"),
+                      index_name="docs",
+                      credential=AzureKeyCredential(os.getenv("SEARCH_KEY")))
+results = search.search("compliance policy")
+context = "\n".join([r["chunk"] for r in results])
+completion = openai.ChatCompletion.create(
+    engine="gpt-4o-prod",
+    messages=[{"role":"system","content":"Use context"}, {"role":"user","content":context}]
+)
+print(completion)</pre></div>
+<a class="try-btn" href="#">Try It Yourself</a>
+</div>
+</div>
+<div class="section">
+<h2>Real-world Use Case</h2>
+<div class="content">
+<p>Global support desks integrate OpenAI with Azure Search and translation services, enabling multilingual Q&A with grounded answers pulled from curated knowledge bases.</p>
+</div>
+</div>
+<div class="section">
+<h2>Beginner Tip & Advanced Note</h2>
+<div class="content">
+<div class="tip"><strong>Beginner Tip:</strong> Start with Search + OpenAI before adding more services; this provides immediate grounding benefits and clear latency baselines.</div>
+<div class="warning"><strong>Advanced Note:</strong> Use private endpoints across Search, OpenAI, and storage to keep data flows internal, and enable Customer-Managed Keys where supported.</div>
+</div>
+</div>
+<div>
+<a href="azure-openai-api-patterns.html" class="nav-btn">← Previous</a>
+<a href="azure-openai-rag.html" class="nav-btn">Next →</a>
+</div>
+</div>
+</body>
+</html>

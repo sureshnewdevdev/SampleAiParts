@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FAQs</title>
+<style>
+body {margin:0;font-family:Arial, sans-serif;}
+.topnav {background-color:#04AA6D;overflow:hidden;color:white;padding:14px;font-size:20px;font-weight:bold;}
+.sidebar {height:100vh;width:260px;position:fixed;top:48px;left:0;background:#f1f1f1;padding-top:20px;overflow-y:auto;border-right:1px solid #ddd;}
+.sidebar a {padding:10px 20px;display:block;color:#000;text-decoration:none;font-weight:600;}
+.sidebar a:hover {background:#ddd;}
+.main {margin-left:270px;padding:20px;}
+.section {border:1px solid #ddd;margin-bottom:20px;}
+.section h2 {margin:0;padding:10px;background:#04AA6D;color:white;}
+.section .content {padding:15px;}
+.note {border-left:4px solid #2196F3;background:#E7F3FE;padding:10px;margin:10px 0;}
+.tip {border-left:4px solid #04AA6D;background:#e8f5e9;padding:10px;margin:10px 0;}
+.warning {border-left:4px solid #f44336;background:#ffebee;padding:10px;margin:10px 0;}
+.example {background:#f5f5f5;border-left:4px solid #999;padding:10px;margin:10px 0;}
+.code {background:#1e1e1e;color:#f8f8f2;padding:10px;border-radius:4px;overflow:auto;font-family:Consolas, monospace;}
+.try-btn {background:#04AA6D;color:white;padding:8px 12px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin-top:8px;}
+.nav-btn {background:#04AA6D;color:white;padding:10px 16px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin:10px 5px;}
+img {max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;margin:10px 0;}
+pre {white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<div class="topnav">Azure OpenAI Service – Architecture, Deployment, Security & Integration</div>
+<div class="sidebar">
+<a href="index.html">Introduction</a>
+<a href="azure-openai-architecture.html">Architecture & Capabilities</a>
+<a href="azure-openai-setup.html">Setup</a>
+<a href="azure-openai-deployment.html">Deployment & Management</a>
+<a href="azure-openai-auth.html">Authentication & Access</a>
+<a href="azure-openai-api-patterns.html">API Integration Patterns</a>
+<a href="azure-openai-integrations.html">Integrations with Azure Services</a>
+<a href="azure-openai-rag.html">RAG Workflow</a>
+<a href="azure-openai-best-practices.html">Best Practices</a>
+<a href="azure-openai-use-cases.html">Real-world Use Cases</a>
+<a href="azure-openai-mini-project.html">Mini Project</a>
+<a href="azure-openai-faqs.html">FAQs</a>
+<a href="azure-openai-interview.html">Interview Questions</a>
+<a href="azure-openai-summary.html">Summary</a>
+<a href="azure-openai-quiz.html">MCQ Quiz</a>
+<a href="azure-openai-downloads.html">Downloads</a>
+</div>
+<div class="main">
+<div class="section">
+<h2>Frequently Asked Questions</h2>
+<div class="content">
+<p>This FAQ addresses common queries about architecture, deployment, authentication, and integration. Use it as a quick reference while implementing solutions.</p>
+<img src="https://via.placeholder.com/900x350?text=FAQ" alt="FAQ" />
+<ul>
+<li><strong>Which regions support Azure OpenAI?</strong> Check Azure documentation; only approved regions appear during resource creation.</li>
+<li><strong>How do I choose model versions?</strong> Pin to a version in your deployment and plan for regression testing when upgrading.</li>
+<li><strong>Can I restrict network access?</strong> Yes, use private endpoints, IP rules, and disable public network access.</li>
+<li><strong>How is data stored?</strong> Prompts and completions may be logged; opt-out options and regional data boundaries apply per policy.</li>
+<li><strong>What about quotas?</strong> Quotas are per model family and region; request increases for production loads.</li>
+</ul>
+</div>
+</div>
+<div class="section">
+<h2>ASCII FAQ Map</h2>
+<div class="content">
+<pre>Architecture -> Regions, quotas
+Deployment -> Versions, capacity
+Auth -> Keys vs AAD, RBAC
+Integration -> API Mgmt, Search, Functions</pre>
+</div>
+</div>
+<div class="section">
+<h2>Beginner Tip & Advanced Note</h2>
+<div class="content">
+<div class="tip"><strong>Beginner Tip:</strong> Bookmark the regional availability page and keep a checklist for deployment prerequisites (quotas, approvals, role assignments).</div>
+<div class="warning"><strong>Advanced Note:</strong> Document data flow and retention decisions for auditors, including log storage locations and anonymization strategies.</div>
+</div>
+</div>
+<div>
+<a href="azure-openai-mini-project.html" class="nav-btn">← Previous</a>
+<a href="azure-openai-interview.html" class="nav-btn">Next →</a>
+</div>
+</div>
+</body>
+</html>
