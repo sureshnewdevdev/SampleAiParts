@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RAG Workflow</title>
+<style>
+body {margin:0;font-family:Arial, sans-serif;}
+.topnav {background-color:#04AA6D;overflow:hidden;color:white;padding:14px;font-size:20px;font-weight:bold;}
+.sidebar {height:100vh;width:260px;position:fixed;top:48px;left:0;background:#f1f1f1;padding-top:20px;overflow-y:auto;border-right:1px solid #ddd;}
+.sidebar a {padding:10px 20px;display:block;color:#000;text-decoration:none;font-weight:600;}
+.sidebar a:hover {background:#ddd;}
+.main {margin-left:270px;padding:20px;}
+.section {border:1px solid #ddd;margin-bottom:20px;}
+.section h2 {margin:0;padding:10px;background:#04AA6D;color:white;}
+.section .content {padding:15px;}
+.note {border-left:4px solid #2196F3;background:#E7F3FE;padding:10px;margin:10px 0;}
+.tip {border-left:4px solid #04AA6D;background:#e8f5e9;padding:10px;margin:10px 0;}
+.warning {border-left:4px solid #f44336;background:#ffebee;padding:10px;margin:10px 0;}
+.example {background:#f5f5f5;border-left:4px solid #999;padding:10px;margin:10px 0;}
+.code {background:#1e1e1e;color:#f8f8f2;padding:10px;border-radius:4px;overflow:auto;font-family:Consolas, monospace;}
+.try-btn {background:#04AA6D;color:white;padding:8px 12px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin-top:8px;}
+.nav-btn {background:#04AA6D;color:white;padding:10px 16px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin:10px 5px;}
+img {max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;margin:10px 0;}
+pre {white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<div class="topnav">Azure OpenAI Service – Architecture, Deployment, Security & Integration</div>
+<div class="sidebar">
+<a href="index.html">Introduction</a>
+<a href="azure-openai-architecture.html">Architecture & Capabilities</a>
+<a href="azure-openai-setup.html">Setup</a>
+<a href="azure-openai-deployment.html">Deployment & Management</a>
+<a href="azure-openai-auth.html">Authentication & Access</a>
+<a href="azure-openai-api-patterns.html">API Integration Patterns</a>
+<a href="azure-openai-integrations.html">Integrations with Azure Services</a>
+<a href="azure-openai-rag.html">RAG Workflow</a>
+<a href="azure-openai-best-practices.html">Best Practices</a>
+<a href="azure-openai-use-cases.html">Real-world Use Cases</a>
+<a href="azure-openai-mini-project.html">Mini Project</a>
+<a href="azure-openai-faqs.html">FAQs</a>
+<a href="azure-openai-interview.html">Interview Questions</a>
+<a href="azure-openai-summary.html">Summary</a>
+<a href="azure-openai-quiz.html">MCQ Quiz</a>
+<a href="azure-openai-downloads.html">Downloads</a>
+</div>
+<div class="main">
+<div class="section">
+<h2>Retrieval-Augmented Generation Workflow</h2>
+<div class="content">
+<p>RAG combines Azure OpenAI with a retrieval system, typically Azure Search, to ground model outputs in enterprise data. Documents are chunked, embedded, and indexed; user questions trigger semantic search, and top results are injected into the prompt. This reduces hallucinations and ensures responses cite trusted sources.</p>
+<p>Pipeline stages include ingestion, chunking, embeddings generation, indexing, and query-time retrieval with prompt assembly. Latency budgeting across these stages is key to maintaining responsive chat experiences. Caching frequent queries and precomputing prompt scaffolds can further improve performance.</p>
+<p>Security considerations include encrypting data at rest, controlling index access, and redacting sensitive content during retrieval. Observability should track hit rates, latency per stage, and citations returned to users.</p>
+<img src="https://via.placeholder.com/900x350?text=RAG+Diagram" alt="RAG Diagram" />
+</div>
+</div>
+<div class="section">
+<h2>ASCII RAG Flow</h2>
+<div class="content">
+<pre>Docs -> Chunk -> Embeddings -> Search Index
+User Query -> Search -> Top K Passages -> Prompt Builder -> Azure OpenAI -> Answer with Sources</pre>
+</div>
+</div>
+<div class="section">
+<h2>Example Scenario</h2>
+<div class="content">
+<div class="example"><strong>Example:</strong> A compliance assistant pulls the latest policy PDFs from Blob, indexes them in Azure Search nightly, and injects the top passages into prompts for grounded answers.</div>
+</div>
+</div>
+<div class="section">
+<h2>RAG Code Sample</h2>
+<div class="content">
+<div class="code"><pre># Python: simple RAG loop
+from azure.search.documents import SearchClient
+from azure.core.credentials import AzureKeyCredential
+import openai, os
+
+search = SearchClient(os.getenv("SEARCH_ENDPOINT"), "policies", AzureKeyCredential(os.getenv("SEARCH_KEY")))
+query = input("Ask a policy question: ")
+results = search.search(query, top=3)
+context = "\n".join([doc["content"] for doc in results])
+prompt = f"Use the context to answer:\n{context}\nQuestion:{query}"
+completion = openai.ChatCompletion.create(engine="gpt-4o-prod",
+                                          messages=[{"role":"user","content":prompt}])
+print(completion["choices"][0]["message"]["content"])
+</pre></div>
+<a class="try-btn" href="#">Try It Yourself</a>
+</div>
+</div>
+<div class="section">
+<h2>Real-world Use Case</h2>
+<div class="content">
+<p>Large law firms deploy RAG to give attorneys quick access to clause suggestions grounded in prior contracts, with Azure Search enforcing document-level security filters on retrieved passages.</p>
+</div>
+</div>
+<div class="section">
+<h2>Beginner Tip & Advanced Note</h2>
+<div class="content">
+<div class="tip"><strong>Beginner Tip:</strong> Start with small chunk sizes (e.g., 500 tokens) and measure retrieval quality before adjusting embedding models or rerankers.</div>
+<div class="warning"><strong>Advanced Note:</strong> Add reranking with Azure AI Search vector + hybrid scoring and include source citations in responses to build user trust and auditability.</div>
+</div>
+</div>
+<div>
+<a href="azure-openai-integrations.html" class="nav-btn">← Previous</a>
+<a href="azure-openai-best-practices.html" class="nav-btn">Next →</a>
+</div>
+</div>
+</body>
+</html>

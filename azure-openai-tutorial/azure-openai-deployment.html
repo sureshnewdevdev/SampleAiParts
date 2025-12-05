@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Model Deployment & Management</title>
+<style>
+body {margin:0;font-family:Arial, sans-serif;}
+.topnav {background-color:#04AA6D;overflow:hidden;color:white;padding:14px;font-size:20px;font-weight:bold;}
+.sidebar {height:100vh;width:260px;position:fixed;top:48px;left:0;background:#f1f1f1;padding-top:20px;overflow-y:auto;border-right:1px solid #ddd;}
+.sidebar a {padding:10px 20px;display:block;color:#000;text-decoration:none;font-weight:600;}
+.sidebar a:hover {background:#ddd;}
+.main {margin-left:270px;padding:20px;}
+.section {border:1px solid #ddd;margin-bottom:20px;}
+.section h2 {margin:0;padding:10px;background:#04AA6D;color:white;}
+.section .content {padding:15px;}
+.note {border-left:4px solid #2196F3;background:#E7F3FE;padding:10px;margin:10px 0;}
+.tip {border-left:4px solid #04AA6D;background:#e8f5e9;padding:10px;margin:10px 0;}
+.warning {border-left:4px solid #f44336;background:#ffebee;padding:10px;margin:10px 0;}
+.example {background:#f5f5f5;border-left:4px solid #999;padding:10px;margin:10px 0;}
+.code {background:#1e1e1e;color:#f8f8f2;padding:10px;border-radius:4px;overflow:auto;font-family:Consolas, monospace;}
+.try-btn {background:#04AA6D;color:white;padding:8px 12px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin-top:8px;}
+.nav-btn {background:#04AA6D;color:white;padding:10px 16px;border:none;border-radius:4px;text-decoration:none;display:inline-block;margin:10px 5px;}
+img {max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;margin:10px 0;}
+pre {white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<div class="topnav">Azure OpenAI Service – Architecture, Deployment, Security & Integration</div>
+<div class="sidebar">
+<a href="index.html">Introduction</a>
+<a href="azure-openai-architecture.html">Architecture & Capabilities</a>
+<a href="azure-openai-setup.html">Setup</a>
+<a href="azure-openai-deployment.html">Deployment & Management</a>
+<a href="azure-openai-auth.html">Authentication & Access</a>
+<a href="azure-openai-api-patterns.html">API Integration Patterns</a>
+<a href="azure-openai-integrations.html">Integrations with Azure Services</a>
+<a href="azure-openai-rag.html">RAG Workflow</a>
+<a href="azure-openai-best-practices.html">Best Practices</a>
+<a href="azure-openai-use-cases.html">Real-world Use Cases</a>
+<a href="azure-openai-mini-project.html">Mini Project</a>
+<a href="azure-openai-faqs.html">FAQs</a>
+<a href="azure-openai-interview.html">Interview Questions</a>
+<a href="azure-openai-summary.html">Summary</a>
+<a href="azure-openai-quiz.html">MCQ Quiz</a>
+<a href="azure-openai-downloads.html">Downloads</a>
+</div>
+<div class="main">
+<div class="section">
+<h2>Model Deployment & Management</h2>
+<div class="content">
+<p>Deployments represent named, versioned bindings of models to throughput in a region. Choose a deployment name that encodes environment and intent (e.g., gpt-4o-prod-chat) and track model version changes carefully. Capacity can be scaled up or down to balance latency and cost, and you can run multiple deployments per model for A/B testing.</p>
+<p>Lifecycle management includes tagging deployments, rotating them to newer model versions, and decommissioning unused ones. Monitoring throughput and latency helps determine when to increase capacity or shard traffic via API Management. For regulated workloads, maintain separate deployments for PII-safe prompts and general use.</p>
+<p>Automate deployment creation using CLI, ARM, or Bicep to ensure consistent naming and quotas across environments. Store metadata in a configuration store so applications can switch deployments without code changes.</p>
+<img src="https://via.placeholder.com/900x350?text=Model+Flow" alt="Deployment Flow" />
+</div>
+</div>
+<div class="section">
+<h2>ASCII Deployment Flow</h2>
+<div class="content">
+<pre>Config Repo --> Pipeline --> az deployment create --> Azure OpenAI Deployment
+                                 |--> Tag/Version --> Release --> Traffic via API Mgmt</pre>
+</div>
+</div>
+<div class="section">
+<h2>Example Scenario</h2>
+<div class="content">
+<div class="example"><strong>Example:</strong> An e-commerce team runs two deployments, "gpt-4o-prod" and "gpt-4o-abtest", splitting traffic 80/20 through API Management to evaluate prompt templates.</div>
+</div>
+</div>
+<div class="section">
+<h2>Management Snippet</h2>
+<div class="content">
+<div class="code"><pre># Azure CLI: update capacity and list deployments
+az cognitiveservices account deployment update \
+  -n my-openai -g ai-rg \
+  --deployment-name gpt-4o-prod \
+  --sku-capacity 200
+az cognitiveservices account deployment list -n my-openai -g ai-rg --output table</pre></div>
+<a class="try-btn" href="#">Try It Yourself</a>
+</div>
+</div>
+<div class="section">
+<h2>Real-world Use Case</h2>
+<div class="content">
+<p>A media company scales deployment capacity during prime-time traffic spikes and rolls back to previous model versions if quality regressions are detected through human evaluation dashboards.</p>
+</div>
+</div>
+<div class="section">
+<h2>Beginner Tip & Advanced Note</h2>
+<div class="content">
+<div class="tip"><strong>Beginner Tip:</strong> Keep deployment names short and environment-aware, then expose them as configuration values consumed by your app.</div>
+<div class="warning"><strong>Advanced Note:</strong> Use deployment slots or parallel deployments for blue-green swaps, and gradually shift traffic using API Management policies with weighted routing.</div>
+</div>
+</div>
+<div>
+<a href="azure-openai-setup.html" class="nav-btn">← Previous</a>
+<a href="azure-openai-auth.html" class="nav-btn">Next →</a>
+</div>
+</div>
+</body>
+</html>
